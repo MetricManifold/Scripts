@@ -1,0 +1,6 @@
+#!/bin/bash
+
+for m in `ls | grep "moon_###"`; do
+	cp ./eos $m -r 
+	cp ./parameters.db $m
+done

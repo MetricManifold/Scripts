@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# This script will
+# - check if arguments are supplied, and if they are not, will run jobs
+#	on all directories, otherwise run on specified directories.
+# - Runs sharcnet command on all specified moon_### directories.
+
+num=0
+beg=0
+end=0
+
+cd /work/esilber/moon
+
+if [ $# -eq 0 ]; then
+	echo "You haven't supplied any arguments, would you like to run all jobs? [y/n]"
+	read ans
+	# If yes is selected, then it will count all moon folders.
+	if [ "$ans" == "y" ]; then
+		num=`ls | grep "moon_###" | wc -l`
+	else
+		exit
+	fi
+elif [ $# -eq 0 || $# -gt 2 ]; then
+	echo "$0 requires 2 arguments"
+else
+	start=$1
+	stop=$2
+fi
+
+# Define the start and the end, to be either the arguments or the whole set.
+if [ $beg -eq 0 ] && [ $end -eq 0 ]; then
+	beg=1
+	end=$num	
+fi
+
+echo "Starting to run jobs in directories."
+
+# Enter all the directories and run the command within those directories.
+for m in $(seq -f "%03g" $beg $end); do
+	cd /work/esilber/moon/moon_$m
+	echo "Running sharcnet job in directory `pwd`"
+	cp /work/esilber/iSALE_mail_dam/bin/iSALE2D moon$m
+	sqsub -r 7d -mpp=2g -o run.log moon$m
+done
