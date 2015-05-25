@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Copies file and folder into the moon_### directories.
-for m in `ls | grep "moon_###"`; do
+for m in `ls | grep 'moon_'`; do
 	echo "Copying to `pwd`/$m"
 	cp ./eos $m -r 
 	cp ./parameters.db $m
