@@ -37,5 +37,5 @@ for m in $(seq -f "%03g" $beg $end); do
 	cd /home/esilber/moon/moon_$m
 	echo "Running sharcnet job in directory `pwd`"
 	cp /work/esilber/iSALE_main_dam/bin/iSALE2D m$m
-	sqsub -r 7d --mpp=2g -o run.log m$m
+	sqsub -r 7d --mpp=2g -o run.log ./m$m
 done
