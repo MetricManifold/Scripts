@@ -2,19 +2,21 @@
 
 # This script outputs the size in gigabytes of the argument directory
 
+_self=${0##*/}
+
 if [ $# -ne 1 ]; then
-	printf "${$0##*/}: Must specify directory\n"
+	printf "$_self: Must specify directory\n"
 	exit 1
 elif [ -f $1 ]; then
-	printf "${$0##*/}: ${$1##*/} is a file"
+	printf "$_self: ${1##*/} is a file"
 	exit 2
 elif ! [ -d $1 ]; then
-	printf "${$0##*/}: Directory does not exist\n"
+	printf "$_self: Directory does not exist\n"
 	exit 3
 fi
 
-size=`sudo du -ah $1 | tail -1 | awk '
+_size=`sudo du -ah $1 | tail -1 | awk '
 	{ printf $1 }
 '`
 
-printf "\033[33m$1\033[00m contains $size of data\n"
+printf "\033[33m$1\033[00m contains $_size of data\n"
