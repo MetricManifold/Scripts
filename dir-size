@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 	printf "$_self: Must specify directory\n"
 	exit 1
 elif [ -f $1 ]; then
-	printf "$_self: ${1##*/} is a file"
+	printf "$_self: ${1##*/} is a file\n"
 	exit 2
 elif ! [ -d $1 ]; then
 	printf "$_self: Directory does not exist\n"
