@@ -5,8 +5,8 @@
 #	on all directories, otherwise run on specified directories.
 # - Runs sharcnet command on all specified moon_### directories.
 
-_beg=1
-_end=0
+beg=1
+end=0
 
 cd /work/esilber/moon
 
@@ -15,7 +15,7 @@ if [ $# -eq 0 ]; then
 	read ans
 	# If yes is selected, then it will count all moon folders.
 	if [ "$ans" == "y" ]; then
-		_end=`ls | grep "moon_###" | wc -l`
+		end=`ls | grep "moon_###" | wc -l`
 	else
 		exit 2
 	fi
@@ -25,14 +25,14 @@ elif [ $1 -ge $2 ]; then
 	printf "Cannot _end on a _number before start!"
 	exit 3
 else
-	_beg=$1
-	_end=$2
+	beg=$1
+	end=$2
 fi
 
-printf "Starting to run jobs from moon_"%03g" to moon_"%03g" directories\n" $_beg $_end
+printf "Starting to run jobs from moon_"%03g" to moon_"%03g" directories\n" $beg $end
 
 # Enter all the directories and run the command within those directories.
-for m in $(seq -f "%03g" $_beg $_end); do
+for m in $(seq -f "%03g" $beg $end); do
 	cd /home/esilber/moon/moon_$m
 	echo "Running sharcnet job in directory `pwd`"
 	cp /work/esilber/iSALE_main_dam/bin/iSALE2D m$m
