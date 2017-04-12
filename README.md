@@ -1,5 +1,5 @@
 # parents
-Repository for scripts and other code made for parents.
+Scripts used to data and file manipulation.
 
 TODO
 
